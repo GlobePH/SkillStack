@@ -4,6 +4,7 @@ session_start();
 include 'functions.php';
 loadAll();
 $loggedin = false;
+$loginErr ="";
 if(isset($_SESSION["email"])){
 	$loggedIn_account = getAccountByEmail($_SESSION["email"]);
 	header("Location: industry.php");
@@ -12,11 +13,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 	$loggedin = false;
 	if(!empty($_POST["email"])){
      	$email = test_input($_POST["email"]);
-			echo $email;
      	$loggedin = true;
  	}
  	else if($loggedin == false){
- 		echo "Username or Password field is empty.";
+ 		$loginErr = "Username or Password field is empty.";
  	}
  	if(!empty($_POST["password"])){
  		$password = test_input($_POST["password"]);
@@ -24,13 +24,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 	if($loggedin == true){
  		if(verify($email, $password)){
 			$_SESSION["email"] = test_input($_POST["email"]);
-			header('Refresh: 1; URL = industry.php');
+			header('Refresh: 2; URL = industry.php');
 		}
 		else if($loggedin == false){
 			$reply = "";
 		}
 		else{
-			 echo "Username does not exist or password is wrong";
+			 $loginErr = "Username does not exist or password is wrong";
 		}
 	}
 }
@@ -47,14 +47,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 		<link rel = "stylesheet" type = "text/css" href = "css/style.css">
 	</head>
 	<body>
-		<nav class="navbar navbar-default" id="navbarHome">
-  			<div class="container-fluid">
-    			<div class="navbar-header">
-    				<a><img alt="Brand" src="images/logo.png" width="50" height="50"></a>
-    			</div>
-				<p class="navbar-text" style="color: black;">skillstack.ph</p>
-    		</div>
-		</nav>
+		<?php include 'header.php'; ?>
 		<div class="container" id="loginPage">
 			<div class="row" align="right">
   				<div class="col-xs-12 col-md-12 col-lg-12">
@@ -67,8 +60,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   						<div class="thumbnail" id="loginContainer">
 							<form method = "POST" action = "<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 								<div class="input-group-md">
-  									<input type="text" class="form-control" id="email" placeholder="Email">
-  									<input type="password" class="form-control" id="password" placeholder="Password" style="margin-top: 10px;">
+									<label><p id ="error"><?php echo $loginErr; ?></p></label>
+  									<input type="text" class="form-control" id="email" name="email" placeholder="Email">
+  									<input type="password" class="form-control" id="password" name="password" placeholder="Password" style="margin-top: 10px;">
 								</div>
 								<input type="submit" class="btn btn-block" style="margin-top: 10px;" value="Login">
 							</form>

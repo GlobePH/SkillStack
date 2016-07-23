@@ -83,8 +83,8 @@ class block
   public $lesson_no;
   public $mentor_id;
   public $is_completed;
-
-  function __construct($block_id, $industry_id, $title, $description, $lesson_no, $mentor_id, $is_completed)
+	public $block_image;
+  function __construct($block_id, $industry_id, $title, $description, $lesson_no, $mentor_id, $is_completed, $block_image)
   {
     $this->block_id = $block_id;
     $this->industry_id = $industry_id;
@@ -93,6 +93,7 @@ class block
     $this->lesson_no = $lesson_no;
     $this->mentor_id = $mentor_id;
     $this->is_completed = $is_completed;
+		$this->block_image = $block_image;
   }
 
   function setBlockId($input)
@@ -163,6 +164,15 @@ class block
   {
     return $this->is_completed;
   }
+	function setBlockImage($input)
+	{
+		$this->block_image = $input;
+	}
+
+	function getBlockImage()
+	{
+		return $this->block_image;
+	}
 }
 
 class lesson

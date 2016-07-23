@@ -20,13 +20,11 @@ include 'classes.php';
 
   function verify($email, $password) {
   	global $accounts;
-    echo "hi";
+
   	for($i = 0; $i<count($accounts); $i++)
   	{
   		$temp_email = $accounts[$i]->getEmail();
-  		$temp_pass = $accounts[$i]->getPass();
-      echo $temp_email->getEmail();
-      echo " " . $email->getEmail();
+  		$temp_pass = $accounts[$i]->getPassword();
   		if(strcmp($temp_email, $email) == 0 && strcmp($temp_pass, $password) == 0)
   		{
   			return true;
@@ -41,13 +39,12 @@ include 'classes.php';
   	if(isset($_SESSION["email"]))
   	{
   		global $email;
-  		$username = $_SESSION["email"];
-      global $email;
+  		$email = $_SESSION["email"];
   	}
     loadAccounts();
   	loadMentors();
   	loadLessons();
-  	//loadBlocks();
+  	loadBlocks();
   	loadIndustries();
   }
 
@@ -117,9 +114,8 @@ include 'classes.php';
 
     if($result->num_rows > 0){
       while($row = $result->fetch_assoc()){
-        $temp_block = new block($row['id'], $row['industry_id'], $row['title'], $row['description'], $row['lesson_no'], $row['mentor_id'], $row['is_completed']);
+        $temp_block = new block($row['id'], $row['industry_id'], $row['title'], $row['description'], $row['lesson_no'], $row['mentor_id'], $row['is_completed'], $row['block_image']);
         $blocks[count($blocks)] = $temp_block;
-        echo $blocks[count($blocks)-1]->getTitle();
       }
     }
     $connect->close();
@@ -157,11 +153,11 @@ include 'classes.php';
       $connect->close();
   }
 
-  function createBlock($industry_id, $title, $description, $lesson_no, $mentor_id, $is_completed){
+  function createBlock($industry_id, $title, $description, $lesson_no, $mentor_id, $is_completed, $block_image){
   	$connect = new DBConnection();
   	$connect = $connect->getInstance();
 
-  	$sql = "INSERT INTO block_table(industry_id, title, description, lesson_no, mentor_id, is_completed) VALUES ('$industry_id', '$title', '$description', '$lesson_no', '$mentor_id','$is_completed')";
+  	$sql = "INSERT INTO block_table(industry_id, title, description, lesson_no, mentor_id, is_completed, block_image) VALUES ('$industry_id', '$title', '$description', '$lesson_no', '$mentor_id','$is_completed','$block_image')";
 
   	if ($connect->query($sql) !== TRUE) {
       	echo "Error: " . $sql . "<br>" . $connect->error;
@@ -235,6 +231,48 @@ include 'classes.php';
     	}
 
     	return $acc;
+    }
+    function emailExists($email)
+    {
+    	global $accounts;
+
+    	for($i = 0; $i<count($accounts); $i++)
+    	{
+    		$temp_email = $accounts[$i]->getEmail();
+    		if(strcmp($temp_email, $email) == 0)
+    		{
+    			return true;
+    		}
+    	}
+
+    	return false;
+    }
+
+    function populateIndustry()
+    {
+      global $industries;
+      $temp = null;
+      echo "<div class=\"row\" style=\"padding-top: 30px;\">";
+      for($i=1; $i<=count($industries); $i++){
+          $temp = $industries[$i-1];
+
+        if($i%4==0){
+          echo "<div class=\"row\">";
+        }
+        echo "<div class=\"col-lg-3 col-md-3 col-sm-6 col-xs-12\">
+          <a href =\".$temp->."\"
+          <div class=\"thumbnail\" id=\"industryItem\">
+              <img src=\"images/".$temp->getIndustryImage() ."\" class=\"invert\" width=\"96\" height=\"96\">
+              <div class=\"caption\">
+                <h4 style=\"text-align: center;\">". $temp->getTitle()."</h4>
+                <p style=\"text-align: center;\">". $temp->getBlockNo()." Modules</p>
+              </div>
+            </div>
+        </div>";
+        if($i%4 == 0){
+          echo "</div>";
+        }
+      }
     }
 
 
