@@ -20,12 +20,13 @@ include 'classes.php';
 
   function verify($email, $password) {
   	global $accounts;
-
+    echo "hi";
   	for($i = 0; $i<count($accounts); $i++)
   	{
   		$temp_email = $accounts[$i]->getEmail();
   		$temp_pass = $accounts[$i]->getPass();
-
+      echo $temp_email->getEmail();
+      echo " " . $email->getEmail();
   		if(strcmp($temp_email, $email) == 0 && strcmp($temp_pass, $password) == 0)
   		{
   			return true;
