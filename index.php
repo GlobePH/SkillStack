@@ -4,7 +4,7 @@ session_start();
 include 'functions.php';
 loadAll();
 $loggedin = false;
-$loginErr ="";
+$loginErr ="Sign in.";
 if(isset($_SESSION["email"])){
 	$loggedIn_account = getAccountByEmail($_SESSION["email"]);
 	header("Location: industry.php");
@@ -42,7 +42,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width = device-width, initial-scale = 1">
-		<title>Welcome to skillstack.ph</title>
+		<title>Welcome to SkillStack.ph</title>
 		<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 		<link rel = "stylesheet" type = "text/css" href = "css/style.css">
 	</head>
@@ -51,7 +51,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 		<div class="container" id="loginPage">
 			<div class="row" align="right">
   				<div class="col-xs-12 col-md-12 col-lg-12">
-					<h1 class="welcomeText">Welcome to skillstack.ph</h1>
+					<h1 class="welcomeText">Welcome to SkillStack.ph</h1>
   				</div>
   			</div>
   			<div class="row">
@@ -60,7 +60,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   						<div class="thumbnail" id="loginContainer">
 							<form method = "POST" action = "<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 								<div class="input-group-md">
-									<label><p id ="error"><?php echo $loginErr; ?></p></label>
+									<label><?php echo $loginErr; ?></label>
   									<input type="text" class="form-control" id="email" name="email" placeholder="Email">
   									<input type="password" class="form-control" id="password" name="password" placeholder="Password" style="margin-top: 10px;">
 								</div>
@@ -68,8 +68,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 							</form>
 						</div>
 						<div class="thumbnail" id="loginContainer" align="center">
-							<b style="font-size: 18px;">New to skillstack.ph?</b>
-							<a href="signup.php"><button type="button" class="btn btn-block" style="margin-top: 10px;">Sign Up</button></a>
+							<b style="font-size: 14px;">New to SkillStack.ph?</b>
+							<a href="signup.php" class="signup"><button type="button" class="btn btn-block" style="margin-top: 10px;">Sign Up</button></a>
 						</div>
 					</span>
   				</div>

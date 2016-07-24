@@ -145,12 +145,12 @@ class block
   {
     return $this->lesson_no;
   }
-  function setMentorid($input)
+  function setMentorId($input)
   {
     $this->mentor_id = $input;
   }
 
-  function getMentorid()
+  function getMentorId()
   {
     return $this->mentor_id;
   }
@@ -261,6 +261,8 @@ class mentor
     $this->password = $password;
     $this->email = $email;
     $this->job= $job;
+		$this->description = $description;
+		$this->profile_pic = $profile_pic;
   }
 
   function setMentorId($input)
@@ -395,7 +397,7 @@ class DBConnection
   {
       $this->servername = "localhost";
       $this->dbuser = "root";
-      $this->password = "";
+      $this->password = "root";
       $this->dbName = "skillstack";
       $this->conn = new mysqli($this->servername, $this->dbuser, $this->password, $this->dbName);
   }

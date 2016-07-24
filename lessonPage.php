@@ -1,3 +1,19 @@
+<?php
+	session_start();
+	include 'functions.php';
+  include 'errorHandler.php';
+	loadAll();
+	if(!isset($_GET['link'])){
+		echo "<h1 align=\"center\">No module selected.</h1>";
+		header('Refresh: 2; URL=industry.php');
+		exit;
+	}
+	else{
+		$lesson_id = $_GET['link'];
+		$lesson = getLessonbyId($lesson_id);
+	}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -13,7 +29,7 @@
 		<div class="container" id="modulePage" style="padding-top: 120px;" align="center">
       <div class="jumbotron">
           <img src="images/green-circle.png" style="margin: 24px; margin-right: 0px;" height="32" width="32" align="right">
-          <p id="lessonTitle" align="left">Lesson 1 - Value Proposition</p>
+          <p id="lessonTitle" align="left">Lesson <?php echo $lesson->getLessonId()?> - <?php echo $lesson->getTitle()?>$</p>
           <p id="lessonMentor" align="left">Business Plan Making by Paul Rivera</p>
           <hr>
           <div id="player"></div>
@@ -49,7 +65,7 @@
             }
           </script>
           <hr>
-          <p style="font-size: 16px">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <p style="font-size: 16px">  kkk</p>
       </div>
     </div>
 	</body>
