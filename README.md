@@ -1,0 +1,2 @@
+# SkillStack
+SkillStack is a web application that equips college students with specific industry skills sparking their interest and giving them a competitive advantage in the workforce. Our application, in partnership with professionals in various fields will generate videos and content. This tool will gear students to learn and refine skills that weren’t specifically taught in the university. We change the world one innovation at a time.
